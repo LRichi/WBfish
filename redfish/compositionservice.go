@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 // CompositionService is used to represent the Composition Service

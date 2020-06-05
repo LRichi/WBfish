@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 // DeviceClass is the device class.

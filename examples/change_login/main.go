@@ -4,7 +4,7 @@
 package main
 
 import (
-	"github.com/stmcginnis/gofish"
+	"github.com/LRichi/gofish"
 )
 
 func main() {

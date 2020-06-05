@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 // SessionTypes is the type of session.

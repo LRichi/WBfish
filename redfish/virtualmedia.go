@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 // ResetType describe the type off reset to be issue by the resource

@@ -25,6 +25,16 @@ import (
 const userAgent = "gofish/1.0"
 const applicationJSON = "application/json"
 
+// ErrorResponse the error describes data when the response code is incorrect.
+type ErrorWrongResponse struct {
+	Code    int
+	Payload []byte
+}
+
+func (e ErrorWrongResponse) Error() string {
+	return fmt.Sprintf("%d: %s", e.Code, string(e.Payload))
+}
+
 // APIClient represents a connection to a Redfish/Swordfish enabled service
 // or device.
 type APIClient struct {
@@ -273,7 +283,10 @@ func (c *APIClient) runRequest(method string, url string, payload interface{}) (
 			return nil, err
 		}
 		defer resp.Body.Close()
-		return nil, fmt.Errorf("%d: %s", resp.StatusCode, string(payload))
+		return nil, ErrorWrongResponse{
+			Code:    resp.StatusCode,
+			Payload: payload,
+		}
 	}
 
 	return resp, err

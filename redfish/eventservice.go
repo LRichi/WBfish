@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 // EventFormatType is

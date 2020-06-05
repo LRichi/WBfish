@@ -6,7 +6,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/stmcginnis/gofish"
+	"github.com/LRichi/gofish"
 )
 
 func main() {

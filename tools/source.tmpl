@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/stmcginnis/gofish/common"
+	"github.com/LRichi/gofish/common"
 )
 
 {% for enum in enums %}
@@ -39,6 +39,12 @@ type {{ class.name }} struct {
 	rawData []byte
 {%- endif %}
 }
+
+// GetRawData get raw data json
+func ({{ class.name|lower }} *{{ class.name }}) GetRawData() []byte {
+	return {{ class.name|lower }}.rawData
+}
+
 
 // UnmarshalJSON unmarshals a {{ class.name }} object from the raw JSON.
 func ({{ class.name|lower }} *{{ class.name }}) UnmarshalJSON(b []byte) error {
@@ -96,7 +102,12 @@ func Get{{ class.name }}(c common.Client, uri string) (*{{ class.name }}, error)
     defer resp.Body.Close()
 
     var {{ class.name|lower }} {{ class.name }}
-    err = json.NewDecoder(resp.Body).Decode(&{{ class.name|lower }})
+    {{ class.name|lower }}.rawData, err = ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    err = json.Unmarshal({{ class.name|lower }}.rawData, &{{ class.name|lower }})
     if err != nil {
         return nil, err
     }

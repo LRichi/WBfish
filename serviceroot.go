@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 //
 
-package gofish
+package wbfish
 
 import (
 	"encoding/json"

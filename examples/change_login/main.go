@@ -4,19 +4,19 @@
 package main
 
 import (
-	"github.com/LRichi/gofish"
+	"github.com/LRichi/WBfish"
 )
 
 func main() {
 	// Create a new instance of gofish client, ignoring self-signed certs
 	username := "my-username"
-	config := gofish.ClientConfig{
+	config := wbfish.ClientConfig{
 		Endpoint: "https://bmc-ip",
 		Username: username,
 		Password: "my-password",
 		Insecure: true,
 	}
-	c, err := gofish.Connect(config)
+	c, err := wbfish.Connect(config)
 	if err != nil {
 		panic(err)
 	}

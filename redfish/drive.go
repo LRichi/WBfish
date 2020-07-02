@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // EncryptionAbility is the drive's encryption ability.
@@ -327,16 +327,17 @@ func GetDrive(c common.Client, uri string) (*Drive, error) {
 	defer resp.Body.Close()
 
 	var drive Drive
-	drive.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(drive.rawData, &drive)
+	err = json.Unmarshal(rawData, &drive)
 	if err != nil {
 		return nil, err
 	}
 
+	drive.rawData = rawData
 	drive.SetClient(c)
 	return &drive, nil
 }

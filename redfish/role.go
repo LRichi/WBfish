@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // PrivilegeType is the role privilege type.
@@ -120,16 +120,17 @@ func GetRole(c common.Client, uri string) (*Role, error) {
 	defer resp.Body.Close()
 
 	var role Role
-	role.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(role.rawData, &role)
+	err = json.Unmarshal(rawData, &role)
 	if err != nil {
 		return nil, err
 	}
 
+	role.rawData = rawData
 	role.SetClient(c)
 	return &role, nil
 }

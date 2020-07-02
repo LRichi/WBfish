@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // RAIDType is
@@ -235,16 +235,17 @@ func GetVolume(c common.Client, uri string) (*Volume, error) {
 	defer resp.Body.Close()
 
 	var volume Volume
-	volume.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(volume.rawData, &volume)
+	err = json.Unmarshal(rawData, &volume)
 	if err != nil {
 		return nil, err
 	}
 
+	volume.rawData = rawData
 	volume.SetClient(c)
 	return &volume, nil
 }

@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // FpgaInterfaceType is
@@ -431,16 +431,17 @@ func GetProcessor(c common.Client, uri string) (*Processor, error) {
 	defer resp.Body.Close()
 
 	var processor Processor
-	processor.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(processor.rawData, &processor)
+	err = json.Unmarshal(rawData, &processor)
 	if err != nil {
 		return nil, err
 	}
 
+	processor.rawData = rawData
 	processor.SetClient(c)
 	return &processor, nil
 }

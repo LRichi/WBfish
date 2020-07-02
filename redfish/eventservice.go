@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // EventFormatType is
@@ -199,16 +199,17 @@ func GetEventService(c common.Client, uri string) (*EventService, error) {
 	defer resp.Body.Close()
 
 	var eventService EventService
-	eventService.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(eventService.rawData, &eventService)
+	err = json.Unmarshal(rawData, &eventService)
 	if err != nil {
 		return nil, err
 	}
 
+	eventService.rawData = rawData
 	eventService.SetClient(c)
 	return &eventService, nil
 }

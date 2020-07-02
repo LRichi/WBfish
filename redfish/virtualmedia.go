@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // ResetType describe the type off reset to be issue by the resource
@@ -62,16 +62,17 @@ func GetVirtualMedia(c common.Client, uri string) (*VirtualMedia, error) {
 	defer resp.Body.Close()
 
 	var virtualMedia VirtualMedia
-	virtualMedia.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(virtualMedia.rawData, &virtualMedia)
+	err = json.Unmarshal(rawData, &virtualMedia)
 	if err != nil {
 		return nil, err
 	}
 
+	virtualMedia.rawData = rawData
 	virtualMedia.SetClient(c)
 	return &virtualMedia, nil
 }

@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // FlowControl is type of flow control for the port.
@@ -262,16 +262,17 @@ func GetNetworkPort(c common.Client, uri string) (*NetworkPort, error) {
 	defer resp.Body.Close()
 
 	var networkPort NetworkPort
-	networkPort.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(networkPort.rawData, &networkPort)
+	err = json.Unmarshal(rawData, &networkPort)
 	if err != nil {
 		return nil, err
 	}
 
+	networkPort.rawData = rawData
 	networkPort.SetClient(c)
 	return &networkPort, nil
 }

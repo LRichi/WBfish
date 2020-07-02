@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // DHCPv6OperatingMode is the IPv6 DHCP mode.
@@ -292,16 +292,17 @@ func GetEthernetInterface(c common.Client, uri string) (*EthernetInterface, erro
 	defer resp.Body.Close()
 
 	var ethernetInterface EthernetInterface
-	ethernetInterface.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(ethernetInterface.rawData, &ethernetInterface)
+	err = json.Unmarshal(rawData, &ethernetInterface)
 	if err != nil {
 		return nil, err
 	}
 
+	ethernetInterface.rawData = rawData
 	ethernetInterface.SetClient(c)
 	return &ethernetInterface, nil
 }

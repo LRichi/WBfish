@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // AuthenticationMethod is the method used for authentication.
@@ -363,16 +363,17 @@ func GetNetworkDeviceFunction(c common.Client, uri string) (*NetworkDeviceFuncti
 	defer resp.Body.Close()
 
 	var networkDeviceFunction NetworkDeviceFunction
-	networkDeviceFunction.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(networkDeviceFunction.rawData, &networkDeviceFunction)
+	err = json.Unmarshal(rawData, &networkDeviceFunction)
 	if err != nil {
 		return nil, err
 	}
 
+	networkDeviceFunction.rawData = rawData
 	networkDeviceFunction.SetClient(c)
 	return &networkDeviceFunction, nil
 }

@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // EntityRole is the role of the endpoint.
@@ -234,16 +234,17 @@ func GetEndpoint(c common.Client, uri string) (*Endpoint, error) {
 	defer resp.Body.Close()
 
 	var endpoint Endpoint
-	endpoint.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(endpoint.rawData, &endpoint)
+	err = json.Unmarshal(rawData, &endpoint)
 	if err != nil {
 		return nil, err
 	}
 
+	endpoint.rawData = rawData
 	endpoint.SetClient(c)
 	return &endpoint, nil
 }

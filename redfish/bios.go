@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // BiosAttributes handles the Bios attribute values that may be any of several
@@ -130,16 +130,17 @@ func GetBios(c common.Client, uri string) (*Bios, error) {
 	defer resp.Body.Close()
 
 	var bios Bios
-	bios.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(bios.rawData, &bios)
+	err = json.Unmarshal(rawData, &bios)
 	if err != nil {
 		return nil, err
 	}
 
+	bios.rawData = rawData
 	bios.SetClient(c)
 	return &bios, nil
 }

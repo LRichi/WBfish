@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // ReadingUnits is the type of units used for a reading.
@@ -341,16 +341,17 @@ func GetThermal(c common.Client, uri string) (*Thermal, error) {
 	defer resp.Body.Close()
 
 	var thermal Thermal
-	thermal.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(thermal.rawData, &thermal)
+	err = json.Unmarshal(rawData, &thermal)
 	if err != nil {
 		return nil, err
 	}
 
+	thermal.rawData = rawData
 	thermal.SetClient(c)
 	return &thermal, nil
 }

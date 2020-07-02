@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // AlarmTrips shall contain properties describing the types of alarms that have
@@ -119,16 +119,17 @@ func GetMemoryMetrics(c common.Client, uri string) (*MemoryMetrics, error) {
 	defer resp.Body.Close()
 
 	var memoryMetrics MemoryMetrics
-	memoryMetrics.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(memoryMetrics.rawData, &memoryMetrics)
+	err = json.Unmarshal(rawData, &memoryMetrics)
 	if err != nil {
 		return nil, err
 	}
 
+	memoryMetrics.rawData = rawData
 	memoryMetrics.SetClient(c)
 	return &memoryMetrics, nil
 }

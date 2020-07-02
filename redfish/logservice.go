@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // LogEntryTypes is the type of log entry.
@@ -155,16 +155,17 @@ func GetLogService(c common.Client, uri string) (*LogService, error) {
 	defer resp.Body.Close()
 
 	var logService LogService
-	logService.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(logService.rawData, &logService)
+	err = json.Unmarshal(rawData, &logService)
 	if err != nil {
 		return nil, err
 	}
 
+	logService.rawData = rawData
 	logService.SetClient(c)
 	return &logService, nil
 }

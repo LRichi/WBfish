@@ -18,8 +18,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/LRichi/gofish/common"
-	"github.com/LRichi/gofish/redfish"
+	"github.com/LRichi/WBfish/common"
+	"github.com/LRichi/WBfish/redfish"
 )
 
 const userAgent = "gofish/1.0"

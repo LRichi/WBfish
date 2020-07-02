@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // CompositionService is used to represent the Composition Service
@@ -102,16 +102,17 @@ func GetCompositionService(c common.Client, uri string) (*CompositionService, er
 	defer resp.Body.Close()
 
 	var compositionservice CompositionService
-	compositionservice.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(compositionservice.rawData, &compositionservice)
+	err = json.Unmarshal(rawData, &compositionservice)
 	if err != nil {
 		return nil, err
 	}
 
+	compositionservice.rawData = rawData
 	compositionservice.SetClient(c)
 	return &compositionservice, nil
 }

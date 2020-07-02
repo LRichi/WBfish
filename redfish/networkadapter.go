@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // ControllerCapabilities shall describe the capabilities of a controller.
@@ -255,16 +255,17 @@ func GetNetworkAdapter(c common.Client, uri string) (*NetworkAdapter, error) {
 	defer resp.Body.Close()
 
 	var networkAdapter NetworkAdapter
-	networkAdapter.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(networkAdapter.rawData, &networkAdapter)
+	err = json.Unmarshal(rawData, &networkAdapter)
 	if err != nil {
 		return nil, err
 	}
 
+	networkAdapter.rawData = rawData
 	networkAdapter.SetClient(c)
 	return &networkAdapter, nil
 }

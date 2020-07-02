@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // EventSeverity is
@@ -435,16 +435,17 @@ func GetLogEntry(c common.Client, uri string) (*LogEntry, error) {
 	defer resp.Body.Close()
 
 	var logEntry LogEntry
-	logEntry.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(logEntry.rawData, &logEntry)
+	err = json.Unmarshal(rawData, &logEntry)
 	if err != nil {
 		return nil, err
 	}
 
+	logEntry.rawData = rawData
 	logEntry.SetClient(c)
 	return &logEntry, nil
 }

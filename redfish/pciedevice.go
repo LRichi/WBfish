@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // DeviceType is
@@ -162,16 +162,17 @@ func GetPCIeDevice(c common.Client, uri string) (*PCIeDevice, error) {
 	defer resp.Body.Close()
 
 	var pcieDevice PCIeDevice
-	pcieDevice.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(pcieDevice.rawData, &pcieDevice)
+	err = json.Unmarshal(rawData, &pcieDevice)
 	if err != nil {
 		return nil, err
 	}
 
+	pcieDevice.rawData = rawData
 	pcieDevice.SetClient(c)
 	return &pcieDevice, nil
 }

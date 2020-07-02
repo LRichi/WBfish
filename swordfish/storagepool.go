@@ -8,9 +8,9 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/LRichi/gofish/redfish"
+	"github.com/LRichi/WBfish/redfish"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // StoragePool is a container of data storage capable of providing

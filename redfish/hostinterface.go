@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // AuthenticationMode is the method used for authentication.
@@ -196,16 +196,17 @@ func GetHostInterface(c common.Client, uri string) (*HostInterface, error) {
 	defer resp.Body.Close()
 
 	var hostInterface HostInterface
-	hostInterface.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(hostInterface.rawData, &hostInterface)
+	err = json.Unmarshal(rawData, &hostInterface)
 	if err != nil {
 		return nil, err
 	}
 
+	hostInterface.rawData = rawData
 	hostInterface.SetClient(c)
 	return &hostInterface, nil
 }

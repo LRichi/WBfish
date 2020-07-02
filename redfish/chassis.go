@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // ChassisType is a physical form of the chassis
@@ -185,16 +185,17 @@ func GetChassis(c common.Client, uri string) (*Chassis, error) {
 	defer resp.Body.Close()
 
 	var chassis Chassis
-	chassis.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(chassis.rawData, &chassis)
+	err = json.Unmarshal(rawData, &chassis)
 	if err != nil {
 		return nil, err
 	}
 
+	chassis.rawData = rawData
 	chassis.SetClient(c)
 	return &chassis, nil
 }

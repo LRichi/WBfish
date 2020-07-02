@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/LRichi/gofish"
-	"github.com/LRichi/gofish/redfish"
+	"github.com/LRichi/WBfish/redfish"
 )
 
 func main() {

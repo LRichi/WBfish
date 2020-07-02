@@ -7,8 +7,8 @@ package swordfish
 import (
 	"encoding/json"
 
-	"github.com/LRichi/gofish/common"
-	"github.com/LRichi/gofish/redfish"
+	"github.com/LRichi/WBfish/common"
+	"github.com/LRichi/WBfish/redfish"
 )
 
 // StorageService is a collection of resources that the system can make

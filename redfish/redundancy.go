@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // RedundancyMode is the redundancy mode.
@@ -126,16 +126,17 @@ func GetRedundancy(c common.Client, uri string) (*Redundancy, error) {
 	defer resp.Body.Close()
 
 	var redundancy Redundancy
-	redundancy.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(redundancy.rawData, &redundancy)
+	err = json.Unmarshal(rawData, &redundancy)
 	if err != nil {
 		return nil, err
 	}
 
+	redundancy.rawData = rawData
 	redundancy.SetClient(c)
 	return &redundancy, nil
 }

@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // TaskState indicates the state of a task.
@@ -170,16 +170,17 @@ func GetTask(c common.Client, uri string) (*Task, error) {
 	defer resp.Body.Close()
 
 	var task Task
-	task.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(task.rawData, &task)
+	err = json.Unmarshal(rawData, &task)
 	if err != nil {
 		return nil, err
 	}
 
+	task.rawData = rawData
 	task.SetClient(c)
 	return &task, nil
 }

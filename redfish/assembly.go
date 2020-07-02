@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // Assembly is used to represent an assembly information resource for a
@@ -86,16 +86,17 @@ func GetAssembly(c common.Client, uri string) (*Assembly, error) {
 	defer resp.Body.Close()
 
 	var assembly Assembly
-	assembly.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(assembly.rawData, &assembly)
+	err = json.Unmarshal(rawData, &assembly)
 	if err != nil {
 		return nil, err
 	}
 
+	assembly.rawData = rawData
 	assembly.SetClient(c)
 	return &assembly, nil
 }

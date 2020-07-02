@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // NetworkInterfaceLinks references to resources that are related to, but not
@@ -86,16 +86,17 @@ func GetNetworkInterface(c common.Client, uri string) (*NetworkInterface, error)
 	defer resp.Body.Close()
 
 	var networkInterface NetworkInterface
-	networkInterface.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(networkInterface.rawData, &networkInterface)
+	err = json.Unmarshal(rawData, &networkInterface)
 	if err != nil {
 		return nil, err
 	}
 
+	networkInterface.rawData = rawData
 	networkInterface.SetClient(c)
 	return &networkInterface, nil
 }

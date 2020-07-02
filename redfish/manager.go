@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // CommandConnectTypesSupported is the command connection type.
@@ -383,16 +383,17 @@ func GetManager(c common.Client, uri string) (*Manager, error) {
 	defer resp.Body.Close()
 
 	var manager Manager
-	manager.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(manager.rawData, &manager)
+	err = json.Unmarshal(rawData, &manager)
 	if err != nil {
 		return nil, err
 	}
 
+	manager.rawData = rawData
 	manager.SetClient(c)
 	return &manager, nil
 }

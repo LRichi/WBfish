@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // MemoryDomain is used to represent Memory Domains.
@@ -78,16 +78,17 @@ func GetMemoryDomain(c common.Client, uri string) (*MemoryDomain, error) {
 	defer resp.Body.Close()
 
 	var memoryDomain MemoryDomain
-	memoryDomain.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(memoryDomain.rawData, &memoryDomain)
+	err = json.Unmarshal(rawData, &memoryDomain)
 	if err != nil {
 		return nil, err
 	}
 
+	memoryDomain.rawData = rawData
 	memoryDomain.SetClient(c)
 	return &memoryDomain, nil
 }

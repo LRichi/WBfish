@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // DeviceClass is the device class.
@@ -196,16 +196,17 @@ func GetPCIeFunction(c common.Client, uri string) (*PCIeFunction, error) {
 	defer resp.Body.Close()
 
 	var pcieFunction PCIeFunction
-	pcieFunction.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(pcieFunction.rawData, &pcieFunction)
+	err = json.Unmarshal(rawData, &pcieFunction)
 	if err != nil {
 		return nil, err
 	}
 
+	pcieFunction.rawData = rawData
 	pcieFunction.SetClient(c)
 	return &pcieFunction, nil
 }

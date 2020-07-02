@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // BaseModuleType is the type of module.
@@ -399,16 +399,17 @@ func GetMemory(c common.Client, uri string) (*Memory, error) {
 	defer resp.Body.Close()
 
 	var memory Memory
-	memory.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(memory.rawData, &memory)
+	err = json.Unmarshal(rawData, &memory)
 	if err != nil {
 		return nil, err
 	}
 
+	memory.rawData = rawData
 	memory.SetClient(c)
 	return &memory, nil
 }

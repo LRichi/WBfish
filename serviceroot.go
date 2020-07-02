@@ -8,9 +8,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
-	"github.com/LRichi/gofish/redfish"
-	"github.com/LRichi/gofish/swordfish"
+	"github.com/LRichi/WBfish/common"
+	"github.com/LRichi/WBfish/redfish"
+	"github.com/LRichi/WBfish/swordfish"
 )
 
 // Expand shall contain information about the support of the $expand query

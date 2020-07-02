@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // VLAN shall contain any attributes of a Virtual LAN.
@@ -95,16 +95,17 @@ func GetVLanNetworkInterface(c common.Client, uri string) (*VLanNetworkInterface
 	defer resp.Body.Close()
 
 	var vlanNetworkInterface VLanNetworkInterface
-	vlanNetworkInterface.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(vlanNetworkInterface.rawData, &vlanNetworkInterface)
+	err = json.Unmarshal(rawData, &vlanNetworkInterface)
 	if err != nil {
 		return nil, err
 	}
 
+	vlanNetworkInterface.rawData = rawData
 	vlanNetworkInterface.SetClient(c)
 	return &vlanNetworkInterface, nil
 }

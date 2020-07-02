@@ -2,8 +2,8 @@
 
  [![Go Doc](https://godoc.org/github.com/LRichi/gofish?status.svg)](http://godoc.org/github.com/LRichi/gofish)
  [![Go Report Card](https://goreportcard.com/badge/github.com/LRichi/gofish?branch=master)](https://goreportcard.com/report/github.com/LRichi/gofish)
-[![Releases](https://img.shields.io/github/release/stmcginnis/gofish/all.svg?style=flat-square)](https://github.com/LRichi/gofish/releases)
-[![LICENSE](https://img.shields.io/github/license/stmcginnis/gofish.svg?style=flat-square)](https://github.com/LRichi/gofish/blob/master/LICENSE)
+[![Releases](https://img.shields.io/github/release/stmcginnis/gofish/all.svg?style=flat-square)](https://github.com/LRichi/WBfish/releases)
+[![LICENSE](https://img.shields.io/github/license/stmcginnis/gofish.svg?style=flat-square)](https://github.com/LRichi/WBfish/blob/master/LICENSE)
 
 ![Gofish Logo](./images/gofish200x117.png)
 

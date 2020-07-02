@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // InputType is the type of power input.
@@ -163,16 +163,17 @@ func GetPower(c common.Client, uri string) (*Power, error) {
 	defer resp.Body.Close()
 
 	var power Power
-	power.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(power.rawData, &power)
+	err = json.Unmarshal(rawData, &power)
 	if err != nil {
 		return nil, err
 	}
 
+	power.rawData = rawData
 	power.SetClient(c)
 	return &power, nil
 }

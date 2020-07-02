@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 var secureBootBody = `{

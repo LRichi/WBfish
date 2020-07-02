@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // DeliveryRetryPolicy is the retry policy for delivery failure.
@@ -268,16 +268,17 @@ func GetEventDestination(c common.Client, uri string) (*EventDestination, error)
 	defer resp.Body.Close()
 
 	var eventDestination EventDestination
-	eventDestination.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(eventDestination.rawData, &eventDestination)
+	err = json.Unmarshal(rawData, &eventDestination)
 	if err != nil {
 		return nil, err
 	}
 
+	eventDestination.rawData = rawData
 	eventDestination.SetClient(c)
 	return &eventDestination, nil
 }

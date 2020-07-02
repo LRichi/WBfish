@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // ResetKeysType is method for resetting keys.
@@ -141,16 +141,17 @@ func GetSecureBoot(c common.Client, uri string) (*SecureBoot, error) {
 	defer resp.Body.Close()
 
 	var secureBoot SecureBoot
-	secureBoot.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(secureBoot.rawData, &secureBoot)
+	err = json.Unmarshal(rawData, &secureBoot)
 	if err != nil {
 		return nil, err
 	}
 
+	secureBoot.rawData = rawData
 	secureBoot.SetClient(c)
 	return &secureBoot, nil
 }

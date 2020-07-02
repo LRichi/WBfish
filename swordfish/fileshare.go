@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
-	"github.com/LRichi/gofish/redfish"
+	"github.com/LRichi/WBfish/common"
+	"github.com/LRichi/WBfish/redfish"
 )
 
 // QuotaType shall indicate whether quotas are enabled and enforced by this file

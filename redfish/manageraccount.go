@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // AccountTypes is the type of the account.
@@ -159,16 +159,17 @@ func GetManagerAccount(c common.Client, uri string) (*ManagerAccount, error) {
 	defer resp.Body.Close()
 
 	var managerAccount ManagerAccount
-	managerAccount.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(managerAccount.rawData, &managerAccount)
+	err = json.Unmarshal(rawData, &managerAccount)
 	if err != nil {
 		return nil, err
 	}
 
+	managerAccount.rawData = rawData
 	managerAccount.SetClient(c)
 	return &managerAccount, nil
 }

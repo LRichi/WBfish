@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // CacheSummary shall contain properties which describe the cache memory for a
@@ -121,16 +121,17 @@ func GetStorage(c common.Client, uri string) (*Storage, error) {
 	defer resp.Body.Close()
 
 	var storage Storage
-	storage.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(storage.rawData, &storage)
+	err = json.Unmarshal(rawData, &storage)
 	if err != nil {
 		return nil, err
 	}
 
+	storage.rawData = rawData
 	storage.SetClient(c)
 	return &storage, nil
 }

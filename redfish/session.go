@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // SessionTypes is the type of session.
@@ -121,16 +121,17 @@ func GetSession(c common.Client, uri string) (*Session, error) {
 	defer resp.Body.Close()
 
 	var session Session
-	session.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(session.rawData, &session)
+	err = json.Unmarshal(rawData, &session)
 	if err != nil {
 		return nil, err
 	}
 
+	session.rawData = rawData
 	return &session, nil
 }
 

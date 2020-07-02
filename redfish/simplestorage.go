@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // Device shall describe a storage device visible to SimpleStorage.
@@ -95,16 +95,17 @@ func GetSimpleStorage(c common.Client, uri string) (*SimpleStorage, error) {
 	defer resp.Body.Close()
 
 	var simpleStorage SimpleStorage
-	simpleStorage.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(simpleStorage.rawData, &simpleStorage)
+	err = json.Unmarshal(rawData, &simpleStorage)
 	if err != nil {
 		return nil, err
 	}
 
+	simpleStorage.rawData = rawData
 	simpleStorage.SetClient(c)
 	return &simpleStorage, nil
 }

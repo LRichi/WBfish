@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // AccountProviderTypes is
@@ -327,16 +327,17 @@ func GetAccountService(c common.Client, uri string) (*AccountService, error) {
 	defer resp.Body.Close()
 
 	var accountService AccountService
-	accountService.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(accountService.rawData, &accountService)
+	err = json.Unmarshal(rawData, &accountService)
 	if err != nil {
 		return nil, err
 	}
 
+	accountService.rawData = rawData
 	accountService.SetClient(c)
 	return &accountService, nil
 }

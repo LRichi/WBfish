@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"reflect"
 
-	"github.com/LRichi/gofish/common"
+	"github.com/LRichi/WBfish/common"
 )
 
 // BootOrderTypes is the choice of boot order property to use when controller
@@ -608,16 +608,17 @@ func GetComputerSystem(c common.Client, uri string) (*ComputerSystem, error) {
 	defer resp.Body.Close()
 
 	var computersystem ComputerSystem
-	computersystem.rawData, err = ioutil.ReadAll(resp.Body)
+	rawData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal(computersystem.rawData, &computersystem)
+	err = json.Unmarshal(rawData, &computersystem)
 	if err != nil {
 		return nil, err
 	}
 
+	computersystem.rawData = rawData
 	computersystem.SetClient(c)
 	return &computersystem, nil
 }
